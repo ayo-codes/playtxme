@@ -1,10 +1,13 @@
 import Hapi from "@hapi/hapi";
 import Vision from "@hapi/vision";
 import Handlebars from "handlebars";
+import Cookie from "@hapi/cookie"; // imports the cookie 
 import path from "path"; // provides utilities for working with file and directory files
 import { fileURLToPath } from "url";
 import { webRoutes } from "./web-routes.js";
 import { db } from "./models/db.js";
+import { accountsController } from "./controllers/accounts-controller.js";
+
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -15,6 +18,7 @@ async function init(){
     host:"localhost",
   });
   await server.register(Vision);
+  await server.register(Cookie);
   server.views({
     engines: {
       hbs: Handlebars,
@@ -26,6 +30,18 @@ async function init(){
     layout: true,
     isCached: false,
   });
+
+  server.auth.strategy("session", "cookie", {
+    cookie: {
+      name: "playtxme",
+      password: "secretpasswordnotrevealedtoanyone",
+      isSecure: false,
+    },
+    redirectTo:"/",
+    validate: accountsController.validate,
+  });
+  server.auth.default("session");
+  
   db.init();
   server.route(webRoutes);
   await server.start();
