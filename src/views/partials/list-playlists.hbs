@@ -3,5 +3,11 @@
     <h2 class="title">
       {{title}}
     </h2>
+    {{!--this below adds the button with the folder to enable viewing of tracks --}} 
+     <a href="/playlist/{{_id}}" class="button"> 
+      <span class="icon is-small">
+        <i class="fas fa-folder-open"></i>
+      </span>
+    </a>
   </div>
 {{/each}}
