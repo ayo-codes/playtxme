@@ -29,4 +29,7 @@ export const playlistMemStore = {
     playlists = [];
   },
 
+  async getUserPlaylists(userid){
+    return playlists.filter((playlist) => playlist.userid === userid);
+  }
 };
