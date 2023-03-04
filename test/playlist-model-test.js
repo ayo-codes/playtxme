@@ -5,7 +5,7 @@ import { testPlaylists, mozart } from "./fixtures.js";
 suite ( "Playlist Model tests", () => {
 
   setup(async () => {
-    db.init("json");
+    db.init(); // include "json if you want it to use JsonStore or leave blank for memStore"
     await db.playlistStore.deleteAllPlaylists();
     for (let i =0; i < testPlaylists.length; i +=1){
       // eslint-disable-next-line no-await-in-loop
