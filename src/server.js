@@ -8,6 +8,7 @@ import { webRoutes } from "./web-routes.js";
 import { db } from "./models/db.js";
 import { accountsController } from "./controllers/accounts-controller.js";
 import dotenv from "dotenv";
+import Joi from "joi";
 
 
 const __filename = fileURLToPath(import.meta.url);
@@ -26,6 +27,7 @@ async function init(){
   });
   await server.register(Vision);
   await server.register(Cookie);
+  server.validator(Joi);
   server.views({
     engines: {
       hbs: Handlebars,
