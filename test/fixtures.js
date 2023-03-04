@@ -25,3 +25,20 @@ export const testUsers = [
     password: "secret",
   },
 ];
+
+export const mozart = {
+  title: "Mozart Favourites"
+};
+
+export const testPlaylists = [
+  {
+    title: "Beethoven Sonatas"
+  },
+
+{
+  title: "Beethoven Concertos"
+},
+{
+  title: "Beethoven Symphonies"
+}
+]

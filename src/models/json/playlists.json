@@ -1,9 +1,16 @@
 {
   "playlists": [
     {
-      "userid": "fd27cba8-ee24-403b-8ad7-624e4b482d8e",
-      "title": "Trial",
-      "_id": "dd23a3ca-aff7-4cbc-8048-aa3c01dc5144"
+      "title": "Beethoven Sonatas",
+      "_id": "7ed5b771-3261-48da-8f8e-809fd84e8a41"
+    },
+    {
+      "title": "Beethoven Concertos",
+      "_id": "ea8c4918-8ec4-4494-876d-29b8f72c8e73"
+    },
+    {
+      "title": "Beethoven Symphonies",
+      "_id": "32124a42-af1d-4d13-87af-e43d752df429"
     }
   ]
 }
