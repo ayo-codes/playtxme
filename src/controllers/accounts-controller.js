@@ -1,5 +1,5 @@
 import { db } from "../models/db.js";
-import { UserSpec, } from "../models/joi-schema.js";
+import { UserSpec } from "../models/joi-schema.js";
 
 export const accountsController = {
   index: {

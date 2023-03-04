@@ -3,12 +3,13 @@ import Vision from "@hapi/vision";
 import Handlebars from "handlebars";
 import Cookie from "@hapi/cookie"; // imports the cookie 
 import path from "path"; // provides utilities for working with file and directory files
+import dotenv from "dotenv";
+import Joi from "joi";
 import { fileURLToPath } from "url";
 import { webRoutes } from "./web-routes.js";
 import { db } from "./models/db.js";
 import { accountsController } from "./controllers/accounts-controller.js";
-import dotenv from "dotenv";
-import Joi from "joi";
+
 
 
 const __filename = fileURLToPath(import.meta.url);
