@@ -1,11 +1,3 @@
 {
-  "users": [
-    {
-      "firstName": "a",
-      "lastName": "aa",
-      "email": "a@a.com",
-      "password": "a",
-      "_id": "fd27cba8-ee24-403b-8ad7-624e4b482d8e"
-    }
-  ]
+  "users": []
 }
