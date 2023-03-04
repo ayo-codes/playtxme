@@ -1,5 +1,5 @@
 import { db } from "../models/db.js";
-import { UserSpec } from "../models/joi-schema.js";
+import { UserCredentialsSpec, UserSpec } from "../models/joi-schema.js";
 
 export const accountsController = {
   index: {
@@ -17,7 +17,7 @@ export const accountsController = {
   signup: {
     auth: false,
     validate: {
-      payload: UserSpec,
+      payload: UserSpec, // this is the Joi spec we are using 
       options: {abortEarly : false}, // allows to see all errors 
       failAction: function (request, h, error) {
         return h.view("signup-view", {title: "Sign up error", errors: error.details }).takeover().code(400);
@@ -37,6 +37,13 @@ export const accountsController = {
   },
   login: {
     auth: false,
+    validate: {
+      payload: UserCredentialsSpec, // this is the spec we are using
+      options: {abortEarly: false},
+      failAction: function (request, h, error){
+        return h.view("login-view", {title:"Log in error", errors: error.details}).takeover().code(400);
+      }, 
+    },
     handler: async function (request, h){
       const {email, password } = request.payload;
       const user = await db.userStore.getUserByEmail(email);
