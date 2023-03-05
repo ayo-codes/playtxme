@@ -1,11 +1,15 @@
 import { assert } from "chai";
+import { EventEmitter } from "events"; 
 import { db } from "../src/models/db.js"
 import { testPlaylists, mozart } from "./fixtures.js";
+import { assertSubset } from "./test-utils.js";
 
+
+EventEmitter.setMaxListeners(25);
 suite ( "Playlist Model tests", () => {
 
   setup(async () => {
-    db.init(); // include "json if you want it to use JsonStore or leave blank for memStore"
+    db.init("mongo"); // include "json if you want it to use JsonStore or "mongo" for mongoDb or leave blank for memStore"
     await db.playlistStore.deleteAllPlaylists();
     for (let i =0; i < testPlaylists.length; i +=1){
       // eslint-disable-next-line no-await-in-loop
@@ -15,7 +19,8 @@ suite ( "Playlist Model tests", () => {
 
   test("create a playlist", async() => {
     const playlist = await db.playlistStore.addPlaylist(mozart);
-    assert.equal(mozart, playlist);
+    // assert.equal(mozart, playlist); removed due to objectId from mongo
+    assertSubset(mozart, playlist);
     assert.isDefined(playlist._id); // this is an extra test in comparison to user-model-test
   });
 
@@ -30,7 +35,9 @@ suite ( "Playlist Model tests", () => {
   test("get a playlist - success", async () => {
     const playlist = await db.playlistStore.addPlaylist(mozart);
     const returnedPlaylist = await db.playlistStore.getPlaylistById(playlist._id);
-    assert.equal(mozart, playlist);
+    // assert.equal(mozart, playlist); // removed to allow for mongoDb 
+    assertSubset(mozart, playlist);
+
   });
 
   test("delete One Playlist - success", async () => {
