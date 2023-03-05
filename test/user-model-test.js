@@ -5,7 +5,7 @@ import { maggie, testUsers } from "./fixtures.js"
 suite("User API tests", () => {
 
   setup(async () => {
-    db.init(); // to switch btwn memStore and jsonStore, pass "json" as a parameter
+    db.init("mongo"); // to switch btwn memStore and jsonStore, pass "json" as a parameter
     await db.userStore.deleteAll();
   });
 

@@ -23,7 +23,7 @@ if (result.error){
 
 async function init(){
   const server = Hapi.server({
-    port:2000,
+    port:3000,
     host:"localhost",
   });
   await server.register(Vision);
@@ -52,7 +52,7 @@ async function init(){
   });
   server.auth.default("session");
 
-  db.init();
+  db.init("mongo"); // put in "mongo" to use the mongo database leave blank to use Json or memstore
   server.route(webRoutes);
   await server.start();
   console.log("Server is running on %s", server.info.uri);
