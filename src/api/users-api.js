@@ -26,6 +26,33 @@ export const userApi = {
       }catch (err) {
         return Boom.serverUnavailable("Database Error")
       }
-    }
-  }
-}
+    },
+  },
+
+  findOne: {
+    auth: false,
+    handler: async function (request, h){
+      try{
+        const user = await db.userStore.getUserById(request.params.id);
+        if (!user) {
+          return Boom.notFound("NO User with this id");
+        }
+        return user;
+      } catch(err) {
+        return Boom.serverUnavailable("NO user with this id")
+      }
+    },
+  },
+
+  deleteAll: {
+    auth: false,
+    handler: async function (request, h){
+      try {
+        await db.userStore.deleteAll();
+        return h.response().code(204);
+      } catch(err) {
+        return Boom.serverUnavailable("Database Error")
+      }
+    },
+  },
+};
