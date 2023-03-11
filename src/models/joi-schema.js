@@ -26,8 +26,8 @@ export const UserArray = Joi.array().items(UserSpecPlus).label("UserArray");
 
 export const TrackSpec = Joi.object()
 .keys({ // this is for add track , validation happens at playlist-controller.addTrack
-  title: Joi.string().required().example("Calm Down"),
-  artist: Joi.string().required().example("Rema"),
+  title: Joi.string().required().example("Piano Sonata No. 7"),
+  artist: Joi.string().required().example("Beethoven"),
   duration: Joi.number().allow("").optional().example(12),// this allow("") , allows for a blank
   playlistid: IdSpec,
 }).
@@ -42,7 +42,7 @@ export const TrackArraySpec = Joi.array().items(TrackSpecPlus).label("TrackArray
 
 export const PlaylistSpec = Joi.object() // this is for adding a new playlist on the dashboard page, validation happens at dashboard.addPlaylist
 .keys({
-  title: Joi.string().required().example("AfroBeats"),
+  title: Joi.string().required().example("Beethoven Sonatas"),
   userid: IdSpec,
   tracks: TrackArraySpec,
 })
