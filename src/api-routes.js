@@ -21,4 +21,7 @@ export const apiRoutes = [
 { method: "DELETE", path: "/api/tracks", config: trackApi.deleteAll },
 { method: "DELETE", path: "/api/tracks/{id}", config: trackApi.deleteOne },
 
+{method:"POST", path:"/api/users/authenticate", config:userApi.authenticate}, // authentication route
+
+
 ];

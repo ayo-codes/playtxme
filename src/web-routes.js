@@ -2,6 +2,7 @@ import { accountsController } from "./controllers/accounts-controller.js";
 import { aboutController } from "./controllers/about-controller.js";
 import { playlistController  } from "./controllers/playlist-controller.js";
 import { dashboardController } from "./controllers/dashboard-controller.js"; // has to include .js
+import { userApi } from "./api/users-api.js";
 
 export const webRoutes = [
   {method: "GET", path: "/", config: accountsController.index},
@@ -22,6 +23,8 @@ export const webRoutes = [
   {method:"GET", path:"/dashboard/deleteplaylist/{id}", config: dashboardController.deletePlaylist},
   {method:"GET", path:"/playlist/{id}/deletetrack/{trackid}", config: playlistController.deleteTrack},
 
-  {method:"GET", path:"/{param*}", handler: { directory : {path: "./public"}}, options: {auth:false}}
+  {method:"GET", path:"/{param*}", handler: { directory : {path: "./public"}}, options: {auth:false}},// route for inert
+
+  
 
 ];
