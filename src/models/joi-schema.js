@@ -1,5 +1,5 @@
 import Joi from "joi";
-
+// schema significantly changes between versions of the app ,especially for API doc stuff with swaager
 export const IdSpec = Joi.alternatives().try(Joi.string(), Joi.object()).description("a valid ID");
 
 export const UserCredentialsSpec =Joi.object()
@@ -22,14 +22,35 @@ export const UserSpecPlus = UserSpec.keys({
 
 export const UserArray = Joi.array().items(UserSpecPlus).label("UserArray");
 
+// Tracks 
 
+export const TrackSpec = Joi.object()
+.keys({ // this is for add track , validation happens at playlist-controller.addTrack
+  title: Joi.string().required().example("Calm Down"),
+  artist: Joi.string().required().example("Rema"),
+  duration: Joi.number().allow("").optional().example(12),// this allow("") , allows for a blank
+  playlistid: IdSpec,
+}).
+label("Track");
 
-export const TrackSpec = { // this is for add track , validation happens at playlist-controller.addTrack
-  title: Joi.string().required(),
-  artist: Joi.string().required(),
-  duration: Joi.number().allow("").optional(), // this allow("") , allows for a blank
-};
+export const TrackSpecPlus = TrackSpec.keys({
+  _id: IdSpec,
+  __v: Joi.number(),
+}).label("TrackPlus");
 
-export const PlaylistSpec = { // this is for adding a new playlist on the dashboard page, validation happens at dashboard.addPlaylist
-  title: Joi.string().required(),
-}
+export const TrackArraySpec = Joi.array().items(TrackSpecPlus).label("TrackArray");
+
+export const PlaylistSpec = Joi.object() // this is for adding a new playlist on the dashboard page, validation happens at dashboard.addPlaylist
+.keys({
+  title: Joi.string().required().example("AfroBeats"),
+  userid: IdSpec,
+  tracks: TrackArraySpec,
+})
+.label("Playlist");
+
+export const PlaylistSpecPlus = PlaylistSpec.keys({
+  _id: IdSpec,
+  __v: Joi.number(),
+}).label("PlaylistPlus");
+
+export const PlaylistArraySpec = Joi.array().items(PlaylistSpecPlus).label("PlaylistArray");
