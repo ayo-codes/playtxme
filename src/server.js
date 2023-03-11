@@ -2,9 +2,11 @@ import Hapi from "@hapi/hapi";
 import Vision from "@hapi/vision";
 import Handlebars from "handlebars";
 import Cookie from "@hapi/cookie"; // imports the cookie 
+import Inert from "@hapi/inert"; // imports the inert for photos
 import path from "path"; // provides utilities for working with file and directory files
 import dotenv from "dotenv";
 import Joi from "joi";
+import HapiSwagger from "hapi-swagger";
 import { fileURLToPath } from "url";
 import { webRoutes } from "./web-routes.js";
 import { db } from "./models/db.js";
@@ -22,6 +24,13 @@ if (result.error){
   process.exit(1);
 }
 
+const swaggerOptions = {
+  info: {
+    title: "Playtime API",
+    version:"0.1",
+  },
+};
+
 async function init(){
   const server = Hapi.server({
     port:3000,
@@ -29,6 +38,15 @@ async function init(){
   });
   await server.register(Vision);
   await server.register(Cookie);
+  await server.register(Inert);
+  await server.register([
+    Inert,
+    Vision,
+    {
+      plugin: HapiSwagger,
+      options: swaggerOptions,
+    },
+  ]);
   server.validator(Joi);
   server.views({
     engines: {
