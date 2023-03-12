@@ -47,7 +47,7 @@ async function init(){
   });
   await server.register(Vision);
   await server.register(Cookie);
-  await server.register(Inert);
+ // await server.register(Inert);
   await server.register(jwt);
   await server.register([
     Inert,
